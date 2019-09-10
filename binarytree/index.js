@@ -1,4 +1,4 @@
-const { printTree } = require('../printTree')
+const { printInConsole } = require('../treeUtils')
 
 // const seeds = [2, 1, 3];
 const seeds = [9, 2, 1, 6, 5, 3, 8];
@@ -52,4 +52,4 @@ function result(node) {
 }
 
 // result(rootNode)
-printTree(rootNode)
+printInConsole(rootNode)
