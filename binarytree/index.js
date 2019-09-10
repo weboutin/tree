@@ -1,3 +1,6 @@
+const { printTree } = require('../printTree')
+
+// const seeds = [2, 1, 3];
 const seeds = [9, 2, 1, 6, 5, 3, 8];
 
 class Node {
@@ -47,4 +50,6 @@ function result(node) {
     result(node.rightNode);
   }
 }
-result(rootNode);
+
+// result(rootNode)
+printTree(rootNode)
