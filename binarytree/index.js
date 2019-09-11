@@ -1,4 +1,4 @@
-const { printInConsole } = require('../treeUtils')
+const { printInConsole, preOrderTraversal, inOrderTraversal, postOrderTraversal } = require('../treeUtils')
 
 // const seeds = [2, 1, 3];
 const seeds = [9, 2, 1, 6, 5, 3, 8];
@@ -51,5 +51,10 @@ function result(node) {
   }
 }
 
-// result(rootNode)
-printInConsole(rootNode)
+result(rootNode)
+printInConsole(rootNode);
+
+// preOrderTraversal(rootNode);
+// inOrderTraversal(rootNode)
+
+// postOrderTraversal(rootNode)

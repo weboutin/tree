@@ -15,6 +15,33 @@ function getMaxDeepNum(node) {
 }
 
 /**
+ * 前序遍历
+ */
+function preOrderTraversal(node) {
+  console.log(node.value)
+  node.leftNode && preOrderTraversal(node.leftNode)
+  node.rightNode && preOrderTraversal(node.rightNode)
+}
+
+/**
+ * 中序遍历
+ */
+function inOrderTraversal(node) {
+  node.leftNode && inOrderTraversal(node.leftNode)
+  console.log(node.value)
+  node.rightNode && inOrderTraversal(node.rightNode)
+}
+
+/**
+ * 后序遍历
+ */
+function postOrderTraversal(node) {
+  node.leftNode && postOrderTraversal(node.leftNode)
+  node.rightNode && postOrderTraversal(node.rightNode)
+  console.log(node.value)
+}
+
+/**
  * 在控制台打印树的形状
  **/
 function printInConsole(rootNode) {
@@ -72,3 +99,6 @@ function setNodeIndex(node, index, treeArrContainer, deepNum = 0) {
 }
 
 exports.printInConsole = printInConsole;
+exports.preOrderTraversal = preOrderTraversal;
+exports.inOrderTraversal = inOrderTraversal;
+exports.postOrderTraversal = postOrderTraversal;
