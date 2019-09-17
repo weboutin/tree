@@ -13,7 +13,6 @@ function branchNum(node) {
     }
   }
   )(node)
-  console.log(count)
   return count
 }
 
@@ -31,25 +30,25 @@ function getMaxDeepNum(node) {
 /**
  * 前序遍历
  */
-function preOrderTraversal(node) {
-  printValue(node)
-  node.leftNode && preOrderTraversal(node.leftNode)
-  node.rightNode && preOrderTraversal(node.rightNode)
+function preOrderTraversal(node, resultContainer) {
+  resultContainer ? resultContainer.push(node.value) : printValue(node);
+  node.leftNode && preOrderTraversal(node.leftNode, resultContainer)
+  node.rightNode && preOrderTraversal(node.rightNode, resultContainer)
 }
 
 /**
  * 中序遍历
  */
-function inOrderTraversal(node) {
-  node.leftNode && inOrderTraversal(node.leftNode)
-  printValue(node)
-  node.rightNode && inOrderTraversal(node.rightNode)
+function inOrderTraversal(node, resultContainer) {
+  node.leftNode && inOrderTraversal(node.leftNode, resultContainer)
+  resultContainer ? resultContainer.push(node.value) : printValue(node);
+  node.rightNode && inOrderTraversal(node.rightNode, resultContainer)
 }
 
 /**
  * 使用栈实现中序遍历
  */
-function inOrderTraversalUseStack(node) {
+function inOrderTraversalUseStack(node, resultContainer) {
   let stack = new Stack();
   stack.push(node)
   let currentNode;
@@ -57,7 +56,7 @@ function inOrderTraversalUseStack(node) {
     currentNode = stack.getLast();
     if (!currentNode.leftNode) {
       let node = stack.pop();
-      printValue(node)
+      resultContainer ? resultContainer.push(node.value) : printValue(node);
       stack.getLast() && (stack.getLast().leftNode = null);
     }
     if (currentNode.leftNode) {
@@ -72,15 +71,16 @@ function inOrderTraversalUseStack(node) {
 }
 
 function printValue(node) {
+  1, 2, 3, 5, 6, 8, 9
   console.log(node.value)
 }
 /**
  * 后序遍历
  */
-function postOrderTraversal(node) {
-  node.leftNode && postOrderTraversal(node.leftNode)
-  node.rightNode && postOrderTraversal(node.rightNode)
-  printValue(node)
+function postOrderTraversal(node, resultContainer) {
+  node.leftNode && postOrderTraversal(node.leftNode, resultContainer)
+  node.rightNode && postOrderTraversal(node.rightNode, resultContainer)
+  resultContainer ? resultContainer.push(node.value) : printValue(node);
 }
 
 /**
@@ -140,9 +140,27 @@ function setNodeIndex(node, index, treeArrContainer, deepNum = 0) {
     && setNodeIndex(node.rightNode, index + 2, treeArrContainer, deepNum + 2)
 }
 
+
+function buildTree(currentNode, compareNode) {
+  if (currentNode.value < compareNode.value) {
+    if (!compareNode.leftNode) {
+      compareNode.setLeft(currentNode)
+      return
+    }
+    buildTree(currentNode, compareNode.leftNode)
+  } else {
+    if (!compareNode.rightNode) {
+      compareNode.setRight(currentNode)
+      return
+    }
+    buildTree(currentNode, compareNode.rightNode)
+  }
+}
+
 exports.printInConsole = printInConsole;
 exports.preOrderTraversal = preOrderTraversal;
 exports.inOrderTraversal = inOrderTraversal;
 exports.postOrderTraversal = postOrderTraversal;
 exports.inOrderTraversalUseStack = inOrderTraversalUseStack;
 exports.branchNum = branchNum;
+exports.buildTree = buildTree;
