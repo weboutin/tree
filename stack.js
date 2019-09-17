@@ -16,6 +16,13 @@ class Stack {
     return this.stackContainer.pop();
   }
 
-}
+  length() {
+    return this.stackContainer.length;
+  }
 
-module.export = Stack
+  getLast() {
+    return this.stackContainer[this.stackContainer.length - 1]
+  }
+
+}
+module.exports = Stack

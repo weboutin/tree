@@ -1,3 +1,4 @@
+const Stack = require('./stack');
 //打印树所有分支
 
 //计算树的分支数
@@ -18,7 +19,7 @@ function getMaxDeepNum(node) {
  * 前序遍历
  */
 function preOrderTraversal(node) {
-  console.log(node.value)
+  printValue(node)
   node.leftNode && preOrderTraversal(node.leftNode)
   node.rightNode && preOrderTraversal(node.rightNode)
 }
@@ -28,17 +29,46 @@ function preOrderTraversal(node) {
  */
 function inOrderTraversal(node) {
   node.leftNode && inOrderTraversal(node.leftNode)
-  console.log(node.value)
+  printValue(node)
   node.rightNode && inOrderTraversal(node.rightNode)
 }
 
+/**
+ * 使用栈实现中序遍历
+ */
+function inOrderTraversalUseStack(node) {
+  let stack = new Stack();
+  stack.push(node)
+  let currentNode;
+  while (stack.length() > 0) {
+    currentNode = stack.getLast();
+    if (!currentNode.leftNode) {
+      let node = stack.pop();
+      printValue(node)
+      stack.getLast() && (stack.getLast().leftNode = null);
+    }
+    if (currentNode.leftNode) {
+      stack.push(currentNode.leftNode)
+      continue
+    }
+    if (currentNode.rightNode) {
+      stack.push(currentNode.rightNode)
+      continue
+    }
+  }
+}
+
+function printValue(node) {
+  // console.log(node)
+  console.log(node.value)
+}
 /**
  * 后序遍历
  */
 function postOrderTraversal(node) {
   node.leftNode && postOrderTraversal(node.leftNode)
   node.rightNode && postOrderTraversal(node.rightNode)
-  console.log(node.value)
+  printValue(node)
 }
 
 /**
@@ -102,3 +132,5 @@ exports.printInConsole = printInConsole;
 exports.preOrderTraversal = preOrderTraversal;
 exports.inOrderTraversal = inOrderTraversal;
 exports.postOrderTraversal = postOrderTraversal;
+exports.inOrderTraversalUseStack = inOrderTraversalUseStack;
+
