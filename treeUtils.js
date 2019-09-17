@@ -1,8 +1,21 @@
 const Stack = require('./stack');
-//打印树所有分支
-
-//计算树的分支数
-
+/**
+ * 计算叶子树 / 分支数
+ * @param {Object} node
+ */
+function branchNum(node) {
+  let count = 0;
+  (function traversal(node) {
+    node.leftNode && traversal(node.leftNode)
+    node.rightNode && traversal(node.rightNode)
+    if (!node.leftNode && !node.rightNode) {
+      count++;
+    }
+  }
+  )(node)
+  console.log(count)
+  return count
+}
 
 /**
  * 计算树最大深度
@@ -59,7 +72,6 @@ function inOrderTraversalUseStack(node) {
 }
 
 function printValue(node) {
-  // console.log(node)
   console.log(node.value)
 }
 /**
@@ -133,4 +145,4 @@ exports.preOrderTraversal = preOrderTraversal;
 exports.inOrderTraversal = inOrderTraversal;
 exports.postOrderTraversal = postOrderTraversal;
 exports.inOrderTraversalUseStack = inOrderTraversalUseStack;
-
+exports.branchNum = branchNum;
