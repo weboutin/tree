@@ -37,6 +37,25 @@ function preOrderTraversal(node, resultContainer) {
 }
 
 /**
+ * 使用栈实现前序序遍历
+ */
+function preOrderTraversalUseStack(node, resultContainer) {
+  let stack = new Stack();
+  stack.push(node)
+  let currentNode;
+  while (stack.length() > 0) {
+    currentNode = stack.pop();
+    resultContainer.push(currentNode.value)
+    if (currentNode.rightNode) {
+      stack.push(currentNode.rightNode)
+    }
+    if (currentNode.leftNode) {
+      stack.push(currentNode.leftNode)
+    }
+  }
+}
+
+/**
  * 中序遍历
  */
 function inOrderTraversal(node, resultContainer) {
@@ -81,6 +100,31 @@ function postOrderTraversal(node, resultContainer) {
   node.leftNode && postOrderTraversal(node.leftNode, resultContainer)
   node.rightNode && postOrderTraversal(node.rightNode, resultContainer)
   resultContainer ? resultContainer.push(node.value) : printValue(node);
+}
+
+function postOrderTraversalUseStack(node, resultContainer) {
+  let stack = new Stack();
+  stack.push(node)
+  let currentNode;
+  while (stack.length() > 0) {
+    currentNode = stack.getLast();
+    if (!currentNode.leftNode && !currentNode.rightNode) {
+      let node = stack.pop();
+      resultContainer ? resultContainer.push(node.value) : printValue(node);
+      stack.getLast() && (
+        stack.getLast().leftNode ?
+          stack.getLast().leftNode = null
+          : stack.getLast().rightNode = null)
+    }
+    if (currentNode.leftNode) {
+      stack.push(currentNode.leftNode)
+      continue;
+    }
+    if (currentNode.rightNode) {
+      stack.push(currentNode.rightNode)
+      continue;
+    }
+  }
 }
 
 /**
@@ -159,8 +203,10 @@ function buildTree(currentNode, compareNode) {
 
 exports.printInConsole = printInConsole;
 exports.preOrderTraversal = preOrderTraversal;
+exports.preOrderTraversalUseStack = preOrderTraversalUseStack;
 exports.inOrderTraversal = inOrderTraversal;
 exports.postOrderTraversal = postOrderTraversal;
 exports.inOrderTraversalUseStack = inOrderTraversalUseStack;
+exports.postOrderTraversalUseStack = postOrderTraversalUseStack;
 exports.branchNum = branchNum;
 exports.buildTree = buildTree;

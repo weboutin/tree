@@ -56,4 +56,18 @@ describe('#000 Binary Tree!', () => {
       branchNum.should.be.eql(3)
     });
   })
+  describe('#007 preOrderTraversalUsestack', () => {
+    it('success', () => {
+      let resultContainer = []
+      treeUtils.preOrderTraversalUseStack(rootNode, resultContainer);
+      resultContainer.should.be.eql([9, 2, 1, 6, 5, 3, 8])
+    });
+  })
+  describe('#008 postOrderTraversalUsestack', () => {
+    it('success', () => {
+      let resultContainer = []
+      treeUtils.postOrderTraversalUseStack(rootNode, resultContainer);
+      resultContainer.should.be.eql([1, 3, 5, 8, 6, 2, 9])
+    });
+  })
 })
