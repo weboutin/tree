@@ -70,4 +70,13 @@ describe('#000 Binary Tree!', () => {
       resultContainer.should.be.eql([1, 3, 5, 8, 6, 2, 9])
     });
   })
+  describe('#009 build AVL tree', () => {
+    it('success', () => {
+      const seeds = [9, 2, 1, 6, 5, 3, 8];
+      let rootNode = new Node(seeds[0]);
+      for (let i = 1; i < seeds.length; i++) {
+        treeUtils.buildAvlTree(new Node(seeds[i]), rootNode, i);
+      }
+    })
+  })
 })

@@ -201,6 +201,10 @@ function buildTree(currentNode, compareNode) {
   }
 }
 
+function buildAvlTree(currentNode, compareNode) {
+
+}
+
 exports.printInConsole = printInConsole;
 exports.preOrderTraversal = preOrderTraversal;
 exports.preOrderTraversalUseStack = preOrderTraversalUseStack;
@@ -210,3 +214,4 @@ exports.inOrderTraversalUseStack = inOrderTraversalUseStack;
 exports.postOrderTraversalUseStack = postOrderTraversalUseStack;
 exports.branchNum = branchNum;
 exports.buildTree = buildTree;
+exports.buildAvlTree = buildAvlTree;
