@@ -21,6 +21,9 @@ function branchNum(node) {
  * @param node {Object}
  **/
 function getMaxDeepNum(node) {
+  if (!node) {
+    return 0;
+  }
   function max(num1, num2) {
     return num1 >= num2 ? num1 : num2
   }
@@ -201,7 +204,51 @@ function buildTree(currentNode, compareNode) {
   }
 }
 
-function buildAvlTree(currentNode, compareNode) {
+function sortNode(node1, node2, node3) {
+  let rootNode = null
+  node1.clearBranch();
+  node2.clearBranch();
+  node3.clearBranch();
+}
+
+// currentNode.setParent(compareNode)
+function buildAvlTree(currentNode, compareNode, rootNode) {
+  if (currentNode.value < compareNode.value) {
+    if (!compareNode.leftNode) {
+      compareNode.setLeft(currentNode)
+      currentNode.setParent(compareNode)
+      let BalanceFactor = getMaxDeepNum(rootNode.leftNode) - getMaxDeepNum(rootNode.rightNode)
+      if (BalanceFactor != 0 && BalanceFactor != 1 && BalanceFactor != -1) {
+        //不平衡点
+        let unBanceNode = currentNode.parentNode.parentNode;
+
+        if (unBanceNode.leftNode && unBanceNode.rightNode) {
+
+        } else {
+          //如果不平衡点只有一个子节点，那不平衡点下3个节点排序即可
+          let unBanceNodeParent = unBanceNode.parentNode;
+          let maxNode = sortNode(currentNode, currentNode.parentNode, currentNode.parentNode.parentNode);
+          //修改父节点指向
+          if (unBanceNode) {
+            unBanceNode.parentNode = unBanceNodeParent
+          }
+        }
+      }
+      return
+    }
+    buildAvlTree(currentNode, compareNode.leftNode, rootNode)
+  } else {
+    if (!compareNode.rightNode) {
+      compareNode.setRight(currentNode)
+      currentNode.setParent(compareNode)
+      let BalanceFactor = getMaxDeepNum(rootNode.leftNode) - getMaxDeepNum(rootNode.rightNode)
+      if (BalanceFactor != 0 && BalanceFactor != 1 && BalanceFactor != -1) {
+        //树不平衡
+      }
+      return
+    }
+    buildAvlTree(currentNode, compareNode.rightNode, rootNode)
+  }
 
 }
 
