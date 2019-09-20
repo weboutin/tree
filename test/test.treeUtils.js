@@ -73,12 +73,13 @@ describe('#000 Binary Tree!', () => {
   describe('#009 build AVL tree', () => {
     it('success', () => {
       // const seeds = [9, 2, 1, 6, 5, 3, 8];
-      const seeds = [9, 2, 1];
-      let rootNode = new Node(seeds[0]);
+      const seeds = [9, 2, 1, 6, 5, 3];
+      let rootNode = new Node();
+      rootNode.setLeft(new Node(seeds[0]))
       for (let i = 1; i < seeds.length; i++) {
-        treeUtils.buildAvlTree(new Node(seeds[i]), rootNode, rootNode);
+        treeUtils.buildAvlTree(new Node(seeds[i]), rootNode.getLeft(), rootNode.getLeft());
       }
-      treeUtils.printInConsole(rootNode)
+      treeUtils.printInConsole(rootNode.getLeft())
     })
   })
 })

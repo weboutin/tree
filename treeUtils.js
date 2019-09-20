@@ -204,43 +204,53 @@ function buildTree(currentNode, compareNode) {
   }
 }
 
+/**
+ * 对节点重新进行左中右排序
+ */
 function sortNode(node1, node2, node3) {
-  let rootNode = null
   node1.clearBranch();
   node2.clearBranch();
   node3.clearBranch();
+  let container = {
+  }
+  container[node1.getValue()] = node1
+  container[node2.getValue()] = node2
+  container[node3.getValue()] = node3
+  let arr = [node1.getValue(), node2.getValue(), node3.getValue()].sort();
+  let leftChild = container[arr[0]]
+  let parent = container[arr[1]]
+  let rightChild = container[arr[2]]
+  parent.setLeft(leftChild);
+  parent.setRight(rightChild);
+  return parent
 }
 
 // currentNode.setParent(compareNode)
 function buildAvlTree(currentNode, compareNode, rootNode) {
   if (currentNode.value < compareNode.value) {
-    if (!compareNode.leftNode) {
+    if (!compareNode.haveLeft()) {
       compareNode.setLeft(currentNode)
-      currentNode.setParent(compareNode)
       let BalanceFactor = getMaxDeepNum(rootNode.leftNode) - getMaxDeepNum(rootNode.rightNode)
       if (BalanceFactor != 0 && BalanceFactor != 1 && BalanceFactor != -1) {
         //不平衡点
         let unBanceNode = currentNode.parentNode.parentNode;
 
         if (unBanceNode.leftNode && unBanceNode.rightNode) {
-
+          let unBanceNodeParent = unBanceNode.parentNode.parentNode;
         } else {
-          //如果不平衡点只有一个子节点，那不平衡点下3个节点排序即可
           let unBanceNodeParent = unBanceNode.parentNode;
+          //如果不平衡点只有一个子节点，那不平衡点下3个节点排序即可
           let maxNode = sortNode(currentNode, currentNode.parentNode, currentNode.parentNode.parentNode);
           //修改父节点指向
-          if (unBanceNode) {
-            unBanceNode.parentNode = unBanceNodeParent
-          }
+          unBanceNodeParent.replaceChild(unBanceNode, maxNode)
         }
       }
       return
     }
     buildAvlTree(currentNode, compareNode.leftNode, rootNode)
   } else {
-    if (!compareNode.rightNode) {
+    if (!compareNode.haveRight()) {
       compareNode.setRight(currentNode)
-      currentNode.setParent(compareNode)
       let BalanceFactor = getMaxDeepNum(rootNode.leftNode) - getMaxDeepNum(rootNode.rightNode)
       if (BalanceFactor != 0 && BalanceFactor != 1 && BalanceFactor != -1) {
         //树不平衡
